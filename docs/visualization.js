@@ -44,7 +44,7 @@ function initMap() {
                     //    var theText = elements[i].firstChild.nodeValue;
                     //    // Do something here
                     //}
-                    var imgs = $('.center-block', data.contents);
+                    var imgs = $('.big_image', data.contents);
                     console.log(imgs[0])
                 }
             );
