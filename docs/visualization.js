@@ -45,7 +45,7 @@ function initMap() {
                     //    // Do something here
                     //}
                     var imgs = $('.big_image', data.contents);
-                    console.log(imgs[0])
+                    console.log(imgs.attr('src'))
                 }
             );
         });
