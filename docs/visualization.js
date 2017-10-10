@@ -21,6 +21,7 @@ function initMap() {
             '<div id="bodyContent">' +
             '<a href=https://www.marinetraffic.com/en/ais/details/ships/mmsi:' + ship.mmsi + ' target="new"> Maritime traffic link' +
             '</a>' +
+               ' <img id=ship_img src="" width=300px' +
             '</div>' +
             '</div>';
 
@@ -44,8 +45,9 @@ function initMap() {
                     //    var theText = elements[i].firstChild.nodeValue;
                     //    // Do something here
                     //}
-                    var imgs = data.contents.$('.big_image');
-                    console.log(imgs.attr('src'))
+                    //var imgs = $('.big_image', data.contents);
+                    console.log($('.big_image', data.contents).attr('src').replace("//", ""));
+                    //$('#ship_img').attr('src', )
                 }
             );
         });
