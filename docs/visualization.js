@@ -45,8 +45,8 @@ function initMap() {
                     //    var theText = elements[i].firstChild.nodeValue;
                     //    // Do something here
                     //}
-                    //var imgs = $('.big_image', data.contents);
-                    console.log($('.big_image', data.contents).attr('src').replace("//", ""));
+                    var imgs = $('.big_image', data.contents);
+                    console.log(imgs.replace("//", ""));
                     //$('#ship_img').attr('src', )
                 }
             );
