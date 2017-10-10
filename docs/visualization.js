@@ -51,7 +51,7 @@ function initMap() {
                     if (typeof imgs != 'undefined') {
                         var src = imgs.attr('src').replace("//", "");
                         console.log(src);
-                        $('#ship_img').attr('src', 'http://' + src)
+                        $('#ship_img').attr('src', 'https://' + src)
                     }
                 }
             );
