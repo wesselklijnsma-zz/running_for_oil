@@ -21,7 +21,7 @@ function initMap() {
             '<div id="bodyContent">' +
             '<div id="ship_name"></div>' +
             '<img id=ship_img_' + ship.mmsi + ' src="tanker.png" width=200px> <br><br>' +
-            '<a href=https://www.marinetraffic.com/en/ais/details/ships/mmsi:' + ship.mmsi + ' target="new"> Maritime traffic link' +
+            '<a href=https://www.marinetraffic.com/en/ais/details/ships/mmsi:' + ship.mmsi + ' target="new"> Marine traffic link' +
             '</a>' +
 
             '</div>' +
