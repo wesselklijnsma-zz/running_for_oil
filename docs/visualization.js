@@ -44,7 +44,8 @@ function initMap() {
                     //    var theText = elements[i].firstChild.nodeValue;
                     //    // Do something here
                     //}
-                    console.log($('.center-block', data.contents)[0].attr('src'))
+                    var imgs = $('.center-block', data.contents);
+                    console.log(imgs[0])
                 }
             );
         });
