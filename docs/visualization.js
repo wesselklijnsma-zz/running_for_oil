@@ -39,12 +39,12 @@ function initMap() {
             $.get("https://allorigins.us/get?url=" +
                 encodeURIComponent("https://www.marinetraffic.com/en/ais/details/ships/mmsi:") + ship.mmsi,
                 function (data) {
-                    var elements = $("<div>").html(data)[0].$("center-block");
+                    //var elements = $("<div>").html(data)[0].$("center-block");
                     //for(var i = 0; i < elements.length; i++) {
                     //    var theText = elements[i].firstChild.nodeValue;
                     //    // Do something here
                     //}
-                    console.log(elements)
+                    console.log(data)
                 }
             );
         });
