@@ -36,7 +36,7 @@ function initMap() {
         markers.push(marker);
         marker.addListener('click', function () {
             infowindow.open(map, marker);
-            $.get("http://anyorigin.com/go?url=" +
+            $.get("https://anyorigin.com/go?url=" +
                 encodeURIComponent("https://www.marinetraffic.com/en/ais/details/ships/mmsi:") + ship.mmsi,
                 function (data) {
                     var elements = $("<div>").html(data)[0].$("center-block");
