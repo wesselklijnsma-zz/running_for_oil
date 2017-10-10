@@ -19,9 +19,11 @@ function initMap() {
             '</div>' +
             '<h1 id="firstHeading" class="firstHeading">' + ship.mmsi + '</h1>' +
             '<div id="bodyContent">' +
+            '<div id="ship_name"></div>' +
+            ' <img id=ship_img src="tanker.png" width=200px> <br><br>' +
             '<a href=https://www.marinetraffic.com/en/ais/details/ships/mmsi:' + ship.mmsi + ' target="new"> Maritime traffic link' +
             '</a>' +
-               ' <img id=ship_img src="" width=300px' +
+
             '</div>' +
             '</div>';
 
@@ -46,8 +48,11 @@ function initMap() {
                     //    // Do something here
                     //}
                     var imgs = $('.big_image', data.contents);
-                    console.log(imgs.replace("//", ""));
-                    //$('#ship_img').attr('src', )
+                    if (typeof imgs != 'undefined') {
+                        var src = imgs.attr('src').replace("//", "");
+                        console.log(src);
+                        $('#ship_img').attr('src', 'http://' + src)
+                    }
                 }
             );
         });
@@ -68,7 +73,7 @@ function initMap() {
     }
 
     var days;
-    $.getJSON("http://127.0.0.1:8080/positions.json", function (data) {
+    $.getJSON("positions.json", function (data) {
         var groups = Object.create(null);
         for (var i = 0; i < data.length; i++) {
             var item = data[i];
