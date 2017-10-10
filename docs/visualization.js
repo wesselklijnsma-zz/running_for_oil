@@ -20,7 +20,7 @@ function initMap() {
             '<h1 id="firstHeading" class="firstHeading">' + ship.mmsi + '</h1>' +
             '<div id="bodyContent">' +
             '<div id="ship_name"></div>' +
-            ' <img id=ship_img src="tanker.png" width=200px> <br><br>' +
+            '<img id=ship_img_' + ship.mmsi + ' src="tanker.png" width=200px> <br><br>' +
             '<a href=https://www.marinetraffic.com/en/ais/details/ships/mmsi:' + ship.mmsi + ' target="new"> Maritime traffic link' +
             '</a>' +
 
@@ -51,7 +51,7 @@ function initMap() {
                     if (typeof imgs != 'undefined') {
                         var src = imgs.attr('src').replace("//", "");
                         //console.log(src);
-                        $('#ship_img').attr('src', 'https://' + src)
+                        $('#ship_img_' + ship.mmsi).attr('src', 'https://' + src)
                     }
                 }
             );
