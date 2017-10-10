@@ -50,7 +50,7 @@ function initMap() {
                     var imgs = $('.big_image', data.contents);
                     if (typeof imgs != 'undefined') {
                         var src = imgs.attr('src').replace("//", "");
-                        console.log(src);
+                        //console.log(src);
                         $('#ship_img').attr('src', 'https://' + src)
                     }
                 }
@@ -132,8 +132,8 @@ function initMap() {
         end_date1.setDate(end_date1.getDate() + 3);
         var end_date = end_date1.toISOString();
 
-        console.log(start_date);
-        console.log(end_date);
+        //console.log(start_date);
+        //console.log(end_date);
         var update = {
             shapes: [
                 {
