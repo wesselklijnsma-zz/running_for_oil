@@ -34,8 +34,18 @@ function initMap() {
         var marker = new google.maps.Marker({
             position: loc,
             map: map,
-            title: ship.mmsi
+            title: ship.mmsi,
+            icon: {
+                path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+                scale: 4,
+                strokeWeight: 0,
+                fillColor: 'red',
+                fillOpacity: Math.random() + ((0.75 - 0.3) - 0.3),
+                rotation: Math.random() * 360
+            }
         });
+
+        console.log(google.maps.SymbolPath.FORWARD_CLOSED_ARROW);
         markers.push(marker);
         marker.addListener('click', function () {
             infowindow.open(map, marker);
@@ -58,6 +68,7 @@ function initMap() {
         });
         //markers = markers.push(marker);
         //console.log("ship_added")
+
     }
 
     function setMapOnAll(map) {
