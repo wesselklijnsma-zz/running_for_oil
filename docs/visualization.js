@@ -202,7 +202,7 @@ function initMap() {
         //console.log(start_date);
 
         var range = document.getElementById('wind-speed').layout.xaxis.range;
-        if (new Date(start_date) > new Date(range[1])) {
+        if (new Date(start_date) >= new Date(range[1])) {
             range = [start_window, end_date_window];
         }
         var update = {
