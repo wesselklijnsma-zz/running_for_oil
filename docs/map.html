@@ -53,7 +53,7 @@
 <div id="graphs">
     <div id="wind-speed">
         <script>
-            Plotly.d3.csv('http://127.0.0.1:8080/data_agg_all.csv', function (rows) {
+            Plotly.d3.csv('data_agg_all.csv', function (rows) {
 //                var trace = {
 //                    name: 'Average speed',
 //                    type: 'scatter',                    // set the chart type
@@ -221,7 +221,7 @@
 
     <div id="oil-price">
         <script>
-            Plotly.d3.csv('http://127.0.0.1:8080/BrentData.csv', function (rows) {
+            Plotly.d3.csv('BrentData.csv', function (rows) {
                 var trace = {
                     type: 'scatter',                    // set the chart type
                     mode: 'lines',                      // connect points with lines
