@@ -1,6 +1,7 @@
 /**
  * Created by wesselklijnsma on 07-10-17.
  */
+
 function initMap() {
 //        var csv = readTextFile("/Users/wesselklijnsma/Documents/CLS/Large-scale_data_enigeering/visualization/ships.csv");
 //        var ships = $.csv.toObjects(csv);
@@ -11,6 +12,47 @@ function initMap() {
         center: center
     });
     var markers = [];
+
+    function CenterControl(controlDiv, map, text, inc) {
+
+        // Set CSS for the control border.
+        var controlUI = document.createElement('div');
+        controlUI.style.backgroundColor = '#fff';
+        controlUI.style.border = '2px solid #fff';
+        controlUI.style.borderRadius = '3px';
+        controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+        controlUI.style.cursor = 'pointer';
+        controlUI.style.marginBottom = '22px';
+        controlUI.style.textAlign = 'center';
+
+        controlUI.width = '50%';
+        controlDiv.appendChild(controlUI);
+
+        // Set CSS for the control interior.
+        var controlText = document.createElement('div');
+        controlText.style.color = 'rgb(25,25,25)';
+        controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
+        controlText.style.fontSize = '16px';
+        controlText.style.lineHeight = '38px';
+        controlText.style.paddingLeft = '5px';
+        controlText.style.paddingRight = '5px';
+        controlText.innerHTML = text;
+        controlUI.appendChild(controlText);
+
+        // Setup the click event listeners: simply set the map to Chicago.
+        controlUI.addEventListener('click', function(){increment(inc)});
+    }
+
+    var centerControlDiv = document.createElement('div');
+    var centerControl = new CenterControl(centerControlDiv, map, 'Next week', 7);
+    centerControlDiv.index = 1;
+
+    var centerControlDiv2 = document.createElement('div');
+    var centerControl2 = new CenterControl(centerControlDiv, map, 'Next day', 1);
+    centerControlDiv2.index = 1;
+
+    map.controls[google.maps.ControlPosition.LEFT_CENTER].push(centerControlDiv);
+    map.controls[google.maps.ControlPosition.LEFT_CENTER].push(centerControlDiv2);
 
     function addShip(ship) {
         var loc = {lat: ship.lat, lng: ship.lng};
@@ -35,17 +77,27 @@ function initMap() {
             position: loc,
             map: map,
             title: ship.mmsi,
+            //icon: {
+            //    anchor: google.maps.Point(10,10),
+            //    url: 'data:image/svg+xml;utf-8, \
+            //          <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" overflow="auto"> \
+            //          <path fill="red" stroke="none" d="M 6 15 L 10 5 L 14 15 z" transform="rotate(' + Math.random() * 360 +
+            //          ', 10, 10)"></path> \
+            //          </svg>',
+            //
+            //}
             icon: {
                 path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
-                scale: 4,
+                scale: 2,
                 strokeWeight: 0,
                 fillColor: 'red',
                 fillOpacity: Math.random() + ((0.75 - 0.3) - 0.3),
-                rotation: Math.random() * 360
+                rotation: Math.random() * 360,
+                optimized: true
             }
         });
 
-        console.log(google.maps.SymbolPath.FORWARD_CLOSED_ARROW);
+
         markers.push(marker);
         marker.addListener('click', function () {
             infowindow.open(map, marker);
@@ -83,7 +135,7 @@ function initMap() {
         markers = [];
     }
 
-    var days;
+    var days = [];
     $.getJSON("positions.json", function (data) {
         var groups = Object.create(null);
         for (var i = 0; i < data.length; i++) {
@@ -122,11 +174,11 @@ function initMap() {
     }
 
     var counter = 1;
-    $(document).keypress(function () {
+    function increment(inc) {
         clearMarkers();
         if (counter < days.length) {
             plot_ships(days, counter);
-            counter += 7;
+            counter += inc;
             updateWindow(days[counter])
         } else {
             //alert('starting over');
@@ -134,18 +186,27 @@ function initMap() {
             plot_ships(days, counter);
             updateWindow(days[counter])
         }
-    });
+    }
+    $(document).keypress(function(){increment(7)});
 
     function updateWindow(date) {
         //var start_date = date.replace(/\//g, '-');
         var start_date = Object.keys(date)[0].replace(/\//g, '-');
         var end_date1 = new Date(start_date);
-        end_date1.setDate(end_date1.getDate() + 3);
+        var start_window = end_date1.toISOString();
+        end_date1.setDate(end_date1.getDate() + 1);
         var end_date = end_date1.toISOString();
+        end_date1.setDate(end_date1.getDate() + 29);
+        var end_date_window = end_date1.toISOString();
 
         //console.log(start_date);
-        //console.log(end_date);
+
+        var range = document.getElementById('wind-speed').layout.xaxis.range;
+        if (new Date(start_date) > new Date(range[1])) {
+            range = [start_window, end_date_window];
+        }
         var update = {
+            xaxis: {range: range},
             shapes: [
                 {
                     type: 'rect',

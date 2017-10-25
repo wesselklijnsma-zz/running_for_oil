@@ -34,21 +34,21 @@
 <div id="graphs">
     <div id="wind-speed">
         <script>
-            Plotly.d3.csv('data_agg_full.csv', function (rows) {
-                var trace = {
-                    name: 'Average speed',
-                    type: 'scatter',                    // set the chart type
-                    mode: 'lines',                      // connect points with lines
-                    x: rows.map(function (row) {          // set the x-data
-                        return row['date'].replace(/\//g, "-") + " 00:00";
-                    }),
-                    y: rows.map(function (row) {          // set the x-data
-                        return row['avg(avg(sog))'];
-                    }),
-                    yaxis: 'y2',
-                    line: {                             // set the width of the line.
-                        width: 1
-                    }
+            Plotly.d3.csv('http://127.0.0.1:8080/data_agg_all.csv', function (rows) {
+//                var trace = {
+//                    name: 'Average speed',
+//                    type: 'scatter',                    // set the chart type
+//                    mode: 'lines',                      // connect points with lines
+//                    x: rows.map(function (row) {          // set the x-data
+//                        return row['date'].replace(/\//g, "-") + " 00:00";
+//                    }),
+//                    y: rows.map(function (row) {          // set the x-data
+//                        return row['avg(avg(sog))'];
+//                    }),
+//                    yaxis: 'y2',
+//                    line: {                             // set the width of the line.
+//                        width: 1
+//                    }
 //            error_y: {
 //                array: rows.map(function (row) {    // set the height of the error bars
 //                    return row['10 Min Std Dev'];
@@ -56,7 +56,7 @@
 //                thickness: 0.5,                   // set the thickness of the error bars
 //                width: 0
 //            }
-                };
+                //};
 
                 var trace2 = {
                     name: 'Non moving boats',
@@ -104,17 +104,18 @@
 
                 var layout = {
                     yaxis: {title: "Count"},
-                    yaxis2: {
-                        title: 'Nautical knots',
-//                titlefont: {color: 'rgb(148, 103, 189)'},
-//                tickfont: {color: 'rgb(148, 103, 189)'},
-                        overlaying: 'y',
-                        side: 'right'
-                    },// set the y axis title
+//                    yaxis2: {
+//                        title: 'Nautical knots',
+////                titlefont: {color: 'rgb(148, 103, 189)'},
+////                tickfont: {color: 'rgb(148, 103, 189)'},
+//                        overlaying: 'y',
+//                        side: 'right'
+//                    },// set the y axis title
                     xaxis: {
                         showgrid: false,                  // remove the x-axis grid lines
                         tickformat: "%b, %y",              // customize the date format to "month, day"
-                        tickangle: 0
+                        tickangle: 0,
+                        range: ['2015-2-24', '2015-3-24']
                     },
                     legend: {"orientation": "h"},
                     margin: {                           // update the left, bottom, right, top margin
@@ -127,9 +128,9 @@
                             xref: 'x',
                             // y-reference is assigned to the plot paper [0,1]
                             yref: 'paper',
-                            x0: '2014-10-06',
+                            x0: '2015-2-24',
                             y0: 0,
-                            x1: '2014-10-09',
+                            x1: '2015-2-25',
                             y1: 1,
                             fillcolor: '#FF5733',
                             opacity: 0.6,
@@ -142,8 +143,58 @@
 
                 };
 
-                Plotly.plot(document.getElementById('wind-speed'), [trace, trace2, trace3], layout, {showLink: false});
+                var trace4 = {
+                    name: 'Slow count pred',
+                    type: 'scatter',                    // set the chart type
+                    mode: 'lines',                      // connect points with lines
+                    x: rows.map(function (row) {          // set the x-data
+                        return row['date'].replace(/\//g, "-") + " 00:00";
+                    }),
+                    y: rows.map(function (row) {          // set the x-data
+                        return row['slow'];
+                    }),
+                    line: {                             // set the width of the line.
+                        width: 1
+                    },
+                    error_y: {
+                        type: 'data',
+                        array: rows.map(function (row) {    // set the height of the error bars
+                            return 1.96*row['slow_vol'];
+                        }),
+                        thickness: 0.5,                   // set the thickness of the error bars
+                        width: 0
+                    }
+                };
+
+                var trace5 = {
+                    name: 'Fast count pred',
+                    type: 'scatter',                    // set the chart type
+                    mode: 'lines',                      // connect points with lines
+                    x: rows.map(function (row) {          // set the x-data
+                        return row['date'].replace(/\//g, "-") + " 00:00";
+                    }),
+                    y: rows.map(function (row) {          // set the x-data
+                        return row['fast'];
+                    }),
+                    line: {                             // set the width of the line.
+                        width: 1
+                    },
+                    error_y: {
+                        type: 'data',
+                        array: rows.map(function (row) {    // set the height of the error bars
+                            return 1.96*row['fast_vol'];
+                        }),
+                        thickness: 0.5,                   // set the thickness of the error bars
+                        width: 0
+                    }
+                };
+
+                Plotly.plot(document.getElementById('wind-speed'), [trace2, trace3, trace4, trace5], layout, {showLink: false});
+
+
+
             });
+
 
         </script>
     </div>
@@ -151,7 +202,7 @@
 
     <div id="oil-price">
         <script>
-            Plotly.d3.csv('BrentData.csv', function (rows) {
+            Plotly.d3.csv('http://127.0.0.1:8080/BrentData.csv', function (rows) {
                 var trace = {
                     type: 'scatter',                    // set the chart type
                     mode: 'lines',                      // connect points with lines
@@ -179,7 +230,7 @@
                     yaxis: {title: "USD/Bl"}, // set the y axis title
                     xaxis: {
                         showgrid: false,                  // remove the x-axis grid lines
-                        range: ['2014-10-06', '2016-08-18'],
+                        range: ['2015-2-24', '2015-3-24'],
                         tickformat: "%b, %y", // customize the date format to "month, day"
                         tickangle: 0
                     },
@@ -193,9 +244,9 @@
                             xref: 'x',
                             // y-reference is assigned to the plot paper [0,1]
                             yref: 'paper',
-                            x0: '2014-10-06',
+                            x0: '2015-2-24',
                             y0: 0,
-                            x1: '2014-10-09',
+                            x1: '2015-2-25',
                             y1: 1,
                             fillcolor: '#FF5733',
                             opacity: 0.6,
@@ -222,6 +273,7 @@
 <script src="https://npmcdn.com/json-transforms/build/json-transforms.js"></script>
 <script src="jquery-3.2.1.min.js"></script>
 <script src="visualization.js"></script>
+
 <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBf3Ja9re7KhxuOaglhAKoWb3RhUaQAjYk&callback=initMap">
 </script>
