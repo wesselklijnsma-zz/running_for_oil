@@ -173,7 +173,7 @@ function initMap() {
         }
     }
 
-    var counter = 1;
+    var counter = 0;
     function increment(inc) {
         clearMarkers();
         if (counter < days.length) {
