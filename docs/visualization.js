@@ -243,6 +243,14 @@ function initMap() {
     //});
 }
 
+$( "#opener" ).on( "click", function() {
+    $( "#dialog" ).dialog( "open" );
+});
+
+$( function() {
+    $( "#dialog" ).dialog();
+} );
+
 
 
 

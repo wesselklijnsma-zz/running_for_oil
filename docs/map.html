@@ -26,8 +26,27 @@
         #oil-price {
             height: 50%;
         }
+
+        #opener {
+            position: absolute;
+            bottom: 5%;
+            left: 0%;
+            font-size: 16px;
+            line-height: 38px;
+            padding-left: 5px;
+            padding-right: 5px;
+            background-color: rgb(255, 255, 255);
+            border: 2px solid rgb(255, 255, 255);
+            border-radius: 3px;
+            box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 6px;
+            cursor: pointer;
+            margin-bottom: 22px;
+            text-align: center;
+            font-family: Roboto, Arial, sans-serif
+        }
     </style>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </head>
 <body>
 <div id="map"></div>
@@ -267,11 +286,26 @@
     </div>
 </div>
 
-<script src="https://d3js.org/d3.v4.min.js"></script>
+<div id="dialog" title="Usage">
+    <p>The left part of this page shows the location of oil tankers on a specific day on a map. The arrows are oriented in the
+        average course of a tankers. The opacity is determined by the average speed (higher opacity = faster). Clicking on
+        an arrow will open a dialog with information about the ship.
+    </p>
+    <p>On the right two graphs are shown. The upper graph shows the number of slow moving tankers (slow count) and the number of
+        fast moving tankers (fast count) as well as a day ahead forecast along with its 95% confidence interval. The bottom
+        graph shows the Brent oil price for each day in USD/barrel.
+    </p>
+    <p>One can increment the time by pressing the "Next week" or "Next day" button. The vertical orange line in the graphs
+        corresponds to the currently selected day.
+    </p>
+</div>
 
-<script src="https://npmcdn.com/jspath/lib/jspath.js"></script>
-<script src="https://npmcdn.com/json-transforms/build/json-transforms.js"></script>
+<div id="opener">Help</div>
+
+<!--<script src="https://d3js.org/d3.v4.min.js"></script>-->
+
 <script src="jquery-3.2.1.min.js"></script>
+<script src="jquery-ui.js"></script>
 <script src="visualization.js"></script>
 
 <script async defer
